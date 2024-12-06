@@ -22,11 +22,11 @@ class UserSeeder extends Seeder
         ]);
 
         $dataUser = [
-            'Asep Nugraha, S.Kom',      // Sundanese name
-            'Rina Pratiwi, S.Kom',     // Sundanese name
-            'Dedeh Suryani, S.Pd',     // Sundanese name
-            'Joko Supriyanto, S.Tr.Kom', // Javanese name
-            'Andrianto, S.Kom'         // Samarinda name
+            'Asep Nugraha, S.Kom',
+            'Rina Pratiwi, S.Kom',
+            'Dedeh Suryani, S.Pd',
+            'Joko Supriyanto, S.Tr.Kom',
+            'Andrianto, S.Kom'
         ];
 
         $dataNip = [

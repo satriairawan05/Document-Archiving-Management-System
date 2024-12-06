@@ -14,8 +14,8 @@
                             class="img-thumbnail img-fluid">
                     </div>
                     <div class="mt-4 text-center">
-                        <h1 class="h3 font-bold">Welcome to {{ env('APP_NAME') }}</h1>
-                        <h4 class="h5">"Untuk Menang Besar, terkadang anda harus mengambil resiko yang besar pula." - Bill Gates</h4>
+                        <h1 class="h3 font-bold">Welcome to <span class="text-dark">{{ env('APP_NAME') }}</span></h1>
+                        <h4 class="h5">"Untuk <span class="text-dark">Menang Besar</span>, terkadang anda harus mengambil <span class="text-dark">resiko yang besar</span> pula." - Bill Gates</h4>
                     </div>
                 </div>
             </div>
