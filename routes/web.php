@@ -20,18 +20,29 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::middleware('guest')->group(function(){
+    // Login
     Route::get('login',[AuthController::class, 'showLoginForm'])->name('login');
     Route::post('login',[AuthController::class, 'login'])->name('login.form');
+
+    // Register
     Route::get('register',[AuthController::class, 'showRegisterForm'])->name('register');
     Route::Post('register',[AuthController::class, 'register'])->name('register.form');
 });
 
 Route::middleware(['auth'])->group(function(){
+    // Home
     Route::get('home', HomeController::class)->name('home');
 
-    Route::resource('group', \App\Http\Controllers\Admin\Setting\GroupController::class);
+    // Role Permission
+    Route::resource('group', \App\Http\Controllers\Admin\Setting\GroupController::class)->except(['show']);
+
+    // Profile
     Route::resource('profile',\App\Http\Controllers\Admin\Setting\ProfileController::class)->only(['index','edit','update']);
 
+    // Letter Type
+    Route::resource('letter_type', \App\Http\Controllers\Admin\LetterTypeController::class)->except(['show']);
+
+    // Logout
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
