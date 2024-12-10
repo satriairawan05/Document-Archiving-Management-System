@@ -19,8 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // setLocale(LC_TIME, 'id_ID');
-        // \Carbon\Carbon::setLocale('id');
+        setLocale(LC_TIME, 'id_ID');
+        \Carbon\Carbon::setLocale('id');
 
         \Illuminate\Pagination\Paginator::useBootstrapFive();
     }

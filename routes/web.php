@@ -26,7 +26,7 @@ Route::middleware('guest')->group(function(){
 
     // Register
     Route::get('register',[AuthController::class, 'showRegisterForm'])->name('register');
-    Route::Post('register',[AuthController::class, 'register'])->name('register.form');
+    Route::post('register',[AuthController::class, 'register'])->name('register.form');
 });
 
 Route::middleware(['auth'])->group(function(){
@@ -41,6 +41,9 @@ Route::middleware(['auth'])->group(function(){
 
     // Letter Type
     Route::resource('letter_type', \App\Http\Controllers\Admin\LetterTypeController::class)->except(['show']);
+
+    // Incoming Mail
+    Route::resource('incoming_mail', \App\Http\Controllers\Admin\IncomingMailController::class);
 
     // Logout
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');

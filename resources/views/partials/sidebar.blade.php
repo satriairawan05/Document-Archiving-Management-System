@@ -3,6 +3,8 @@
 
     $profile = 0;
     $letterType = 0;
+    $incomingMail = 0;
+    $outgingMail = 0;
 
     foreach ($pages as $r) {
         if ($r->page_name == 'Profile') {
@@ -14,6 +16,18 @@
         if ($r->page_name == 'Letter Type') {
             if ($r->action == 'Read') {
                 $letterType = $r->access;
+            }
+        }
+
+        if ($r->page_name == 'Incoming Mail') {
+            if ($r->action == 'Read') {
+                $incomingMail = $r->access;
+            }
+        }
+
+        if ($r->page_name == 'Outgoing Mail') {
+            if ($r->action == 'Read') {
+                $outgoingMail = $r->access;
             }
         }
     }
@@ -35,10 +49,14 @@
                         class="fas fa-home"></i> <span>Dashboard</span></a>
             </li>
             <li class="menu-header">Main Feature</li>
-            <li class=""><a class="nav-link" href="#"><i class="fas fa-file-contract"></i> <span>Incoming
+            @if($incomingMail == 1)
+            <li class="{{ request()->is('incoming_mail.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('incoming_mail.index') }}"><i class="fas fa-file-contract"></i> <span>Incoming
                         Mail</span></a></li>
+            @endif
+            @if($outgoingMail == 1)
             <li class=""><a class="nav-link" href="#"><i class="fas fa-file-signature"></i> <span>Outgoing
                         Mail</span></a></li>
+            @endif
             @if($letterType == 1)
             <li class="{{ request()->is('letter_type.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('letter_type.index') }}"><i class="fas fa-file-archive"></i> <span>Letter
                         Type</span></a></li>
