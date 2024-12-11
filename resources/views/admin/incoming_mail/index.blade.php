@@ -41,18 +41,13 @@
                                                 <td>{{ \Carbon\Carbon::parse($mail->date)->translatedFormat('l, d F Y') }}
                                                 </td>
                                                 <td>
-                                                    @if ($mail->document == null)
-                                                        <p class="text-dark font-bold">{{ $mail->subject }}</p>
-                                                    @else
-                                                        <a href="{{ route('incoming_mail.show', $mail->id) }}" target="__blank"
-                                                            class="text-primary font-weight-bold text-decoration-none">{{ $mail->subject }}
-                                                        </a>
-                                                    @endif
+                                                    {{ $mail->subject }}
                                                 </td>
                                                 <td>{{ $mail->from }}</td>
                                                 <td>{{ $mail->sender }}</td>
                                                 <td>{{ $mail->receipint }}</td>
                                                 <td>
+                                                    <a href="{{ route('incoming_mail.show',$mail->id) }}" target="__blank" class="btn btn-sm btn-primary"><i class="fas fa-file-pdf"></i></a>
                                                     @if ($access['Update'] == 1)
                                                         <a href="{{ route('incoming_mail.edit', $mail->id) }}"
                                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
