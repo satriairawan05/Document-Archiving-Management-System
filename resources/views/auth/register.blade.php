@@ -95,10 +95,7 @@
                 </div>
                 </div>
             </div>
-            <div class="simple-footer">
-                Copyright &copy; 2024 - {{ date('Y') }} <div class="bullet"></div> Design By <a
-                    href="https://www.linkedin.com/in/satriai418">Deuwi Satriya Irawan</a>
-            </div>
+            @include('partials.auth-wm')
         </div>
     </div>
 @endsection

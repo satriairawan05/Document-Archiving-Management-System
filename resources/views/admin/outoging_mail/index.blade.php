@@ -17,35 +17,43 @@
                     <div class="card card-block card-stretch card-height">
                         <div class="card-body">
                             <div class="d-flex justify-content-end my-2">
-                                <a href="{{ route('letter_type.create') }}" class="btn btn-success"><i class="fas fa-pen"></i></a>
+                                <a href="{{ route('incoming_mail.create') }}" class="btn btn-success"><i
+                                        class="fas fa-pen"></i></a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table-striped table-bordered data-table table" role="grid">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Type</th>
-                                            <th>Code</th>
-                                            <th>Number</th>
-                                            <th>Ordinal</th>
+                                            <th>Date</th>
+                                            <th>Subject</th>
+                                            <th>From</th>
+                                            <th>Sender</th>
+                                            <th>Receipint</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($letters as $letter)
+                                        @foreach ($mails as $mail)
                                             <tr>
-                                                <td>{{ ($letters->currentPage() - 1) * $letters->perPage() + $loop->iteration }}</td>
-                                                <td>{{ $letter->type }}</td>
-                                                <td>{{ $letter->code }}</td>
-                                                <td>{{ $letter->number }}</td>
-                                                <td>{{ $letter->ordinal ?? '000' }}</td>
+                                                <td>{{ ($mails->currentPage() - 1) * $mails->perPage() + $loop->iteration }}
+                                                </td>
+                                                <td>{{ \Carbon\Carbon::parse($mail->date)->translatedFormat('l, d F Y') }}
+                                                </td>
                                                 <td>
+                                                    {{ $mail->subject }}
+                                                </td>
+                                                <td>{{ $mail->from }}</td>
+                                                <td>{{ $mail->sender }}</td>
+                                                <td>{{ $mail->receipint }}</td>
+                                                <td>
+                                                    <a href="{{ route('incoming_mail.show',$mail->id) }}" target="__blank" class="btn btn-sm btn-primary"><i class="fas fa-file-pdf"></i></a>
                                                     @if ($access['Update'] == 1)
-                                                        <a href="{{ route('letter_type.edit', $letter->id) }}"
+                                                        <a href="{{ route('incoming_mail.edit', $mail->id) }}"
                                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                                     @endif
                                                     @if ($access['Delete'] == 1)
-                                                        <form action="{{ route('letter_type.destroy', $letter->id) }}"
+                                                        <form action="{{ route('incoming_mail.destroy', $mail->id) }}"
                                                             method="post" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
@@ -60,17 +68,18 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Type</th>
-                                            <th>Code</th>
-                                            <th>Number</th>
-                                            <th>Ordinal</th>
+                                            <th>Date</th>
+                                            <th>Subject</th>
+                                            <th>From</th>
+                                            <th>Sender</th>
+                                            <th>Receipint</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
                                 </table>
 
                                 <p class="mt-4">
-                                    {{ $letters->links() }}
+                                    {{ $mails->links() }}
                                 </p>
                             </div>
                         </div>
@@ -80,36 +89,3 @@
         </div>
     </section>
 @endsection
-
-@push('css')
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.min.css') }}">
-@endpush
-
-@push('js')
-    <!-- jQuery -->
-    <script src="{{ asset('assets/js/jquery-3.6.4.min.js') }}"></script>
-
-    <!-- DataTables JS -->
-    <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#table').DataTable({
-                responsive: true,
-                pageLength: 10,
-                language: {
-                    search: "Cari:",
-                    lengthMenu: "Tampilkan _MENU_ data per halaman",
-                    info: "Menampilkan _START_ hingga _END_ dari _TOTAL_ data",
-                    paginate: {
-                        first: "Pertama",
-                        last: "Terakhir",
-                        next: "Berikutnya",
-                        previous: "Sebelumnya"
-                    }
-                }
-            });
-        });
-    </script>
-@endpush

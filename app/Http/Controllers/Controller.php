@@ -46,7 +46,7 @@ class Controller extends BaseController
             ->leftJoin('group_pages', 'users.role_id', '=', 'group_pages.group_id')
             ->leftJoin('pages', 'group_pages.page_id', '=', 'pages.page_id')
             ->where('pages.page_name', '=', $pageName)
-            ->where('group_pages.group_id', '=', $userGroup)
+            ->where('group_pages.group_id', '=', (int) $userGroup)
             ->get();
 
         $create = 0;
@@ -132,7 +132,7 @@ class Controller extends BaseController
             ->leftJoin('groups', 'users.role_id', '=', 'groups.group_id')
             ->leftJoin('pages', 'group_pages.page_id', '=', 'pages.page_id')
             ->where('group_pages.access', '=', 1)
-            ->where('group_pages.group_id', '=', $userGroup)
+            ->where('group_pages.group_id', '=', (int) $userGroup)
             ->select(['group_pages.access', 'pages.page_name', 'pages.action'])
             ->get();
     }

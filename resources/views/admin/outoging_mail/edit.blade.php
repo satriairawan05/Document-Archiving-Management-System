@@ -19,7 +19,8 @@
                             @include('admin.incoming_mail._form',[
                                 'cancelRoute' => route('incoming_mail.index'),
                                 'submitButton' => 'Submit',
-                                'formAction' => route('incoming_mail.store')
+                                'formAction' => route('incoming_mail.update',$mail->id),
+                                'formMethod' => 'PUT'
                             ])
                         </div>
                     </div>

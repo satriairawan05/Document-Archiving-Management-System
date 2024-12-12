@@ -36,11 +36,11 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand mb-2">
-            <a href="#"><img src="{{ asset('assets/img/Logo.png') }}" width="50" class="my-3"
+            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/Logo.png') }}" width="50" class="my-3"
                     alt="{{ env('APP_NAME') }}"></a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm mb-2">
-            <a href="#"><img src="{{ asset('assets/img/Logo.png') }}" width="25"
+            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/Logo.png') }}" width="25"
                     alt="{{ env('APP_NAME') }}"></a>
         </div>
         <ul class="sidebar-menu">
@@ -54,7 +54,7 @@
                         Mail</span></a></li>
             @endif
             @if($outgoingMail == 1)
-            <li class=""><a class="nav-link" href="#"><i class="fas fa-file-signature"></i> <span>Outgoing
+            <li class="{{ request()->is('outgoing_mail.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('outgoing_mail.index') }}"><i class="fas fa-file-signature"></i> <span>Outgoing
                         Mail</span></a></li>
             @endif
             @if($letterType == 1)

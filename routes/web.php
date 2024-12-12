@@ -45,6 +45,9 @@ Route::middleware(['auth'])->group(function(){
     // Incoming Mail
     Route::resource('incoming_mail', \App\Http\Controllers\Admin\IncomingMailController::class);
 
+    // Outgoing Mail
+    Route::resource('outgoing_mail', \App\Http\Controllers\Admin\OutgoingMailController::class);
+
     // Logout
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });

@@ -33,14 +33,14 @@
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
-            @include('partials.user-nav')
-            @include('partials.sidebar')
+            @include('admin.partials.user-nav')
+            @include('admin.partials.sidebar')
 
             <!-- Main Content -->
             <div class="main-content">
                 @yield('main')
             </div>
-            @include('partials.watermark')
+            @include('admin.partials.watermark')
         </div>
     </div>
     <!-- General JS Scripts -->
