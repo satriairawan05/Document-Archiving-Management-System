@@ -16,10 +16,6 @@
                 <div class="col-12">
                     <div class="card card-block card-stretch card-height">
                         <div class="card-body">
-                            <div class="d-flex justify-content-end my-2">
-                                <a href="{{ route('incoming_mail.create') }}" class="btn btn-success"><i
-                                        class="fas fa-pen"></i></a>
-                            </div>
                             <div class="table-responsive">
                                 <table class="table-striped table-bordered data-table table" role="grid">
                                     <thead>

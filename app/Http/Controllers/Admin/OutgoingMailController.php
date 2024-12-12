@@ -36,7 +36,7 @@ class OutgoingMailController extends Controller
             if ($this->access['Read'] == 1) {
                 $letter_id = request()->input('letter_id');
 
-                return isset($letter_id) ? view('admin.incoming_mail.index', ['name' => $this->name, 'access' => $this->access, 'mails' => OutgoingMail::where('letter_id',$letter_id)->latest('id')->paginate(10)]) : view('admin.outoging_mail.list', ['name' => $this->name, 'access' => $this->access, 'letters' => \App\Models\LetterType::select('id', 'type', 'code')->get()]);
+                return isset($letter_id) ? view('admin.outoging_mail.index', ['name' => $this->name, 'access' => $this->access, 'mails' => OutgoingMail::where('letter_id',$letter_id)->latest('id')->paginate(10)]) : view('admin.outoging_mail.list', ['name' => $this->name, 'access' => $this->access, 'letters' => \App\Models\LetterType::select('id', 'type', 'code')->get()]);
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
@@ -54,7 +54,10 @@ class OutgoingMailController extends Controller
         try {
             $this->get_access_page();
             if ($this->access['Create'] == 1) {
-                //
+                return view('admin.outoging_mail.create',[
+                    'name' => $this->name,
+                    'letters' => \App\Models\LetterType::get()
+                ]);
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
@@ -108,7 +111,11 @@ class OutgoingMailController extends Controller
         try {
             $this->get_access_page();
             if ($this->access['Update'] == 1) {
-                //
+                return view('admin.outoging_mail.edit',[
+                    'name' => $this->name,
+                    'letters' => \App\Models\LetterType::all(),
+                    'mail' => $outgoingMail
+                ]);
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
