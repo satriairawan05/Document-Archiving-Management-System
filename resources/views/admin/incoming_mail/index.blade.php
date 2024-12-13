@@ -46,8 +46,9 @@
                                                 <td>{{ $mail->from }}</td>
                                                 <td>{{ $mail->sender }}</td>
                                                 <td>{{ $mail->receipint }}</td>
-                                                <td>
+                                                <td class="d-inline">
                                                     @if ($mail->document !== null)
+                                                        {{-- <p>{!! QrCode::size(50)->generate(route('incoming_mail.show', $mail->id)) !!}</p> --}}
                                                         <a href="{{ route('incoming_mail.show', $mail->id) }}"
                                                             target="__blank" class="btn btn-sm btn-primary"><i
                                                                 class="fas fa-file-pdf"></i></a>
