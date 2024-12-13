@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('outgoing_mails', function (Blueprint $table) {
             $table->id();
-            $table->string('letter_id')->references('letter_id')->on('letter_types')->constrained('letter_types')->cascadeOnUpdate()->cascadeOnDelete()->nullable();
+            $table->string('user_id')->references('id')->on('users')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete()->nullable();
+            $table->string('letter_id')->references('id')->on('letter_types')->constrained('letter_types')->cascadeOnUpdate()->cascadeOnDelete()->nullable();
             $table->string('subject')->nullable();
             $table->string('from')->nullable();
             $table->string('sender')->nullable();
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->string('document')->nullable();
             $table->timestamps();
+            $table->index('user_id');
             $table->index('letter_id');
         });
     }

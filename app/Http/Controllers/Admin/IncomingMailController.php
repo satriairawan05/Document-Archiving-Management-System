@@ -93,6 +93,7 @@ class IncomingMailController extends Controller
                     $mail->sender = $request->input('sender');
                     $mail->receipint = $request->input('receipint');
                     $mail->document = $request->file('document')->store('Mail');
+                    $mail->user_id = auth()->user()->id;
                     $mail->save();
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
@@ -184,6 +185,7 @@ class IncomingMailController extends Controller
 
                         $incomingMail->document = $request->file('document')->store('Mail');
                     }
+                    $incomingMail->user_id = auth()->user()->id;
                     $incomingMail->save();
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();

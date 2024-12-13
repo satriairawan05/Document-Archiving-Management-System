@@ -47,7 +47,7 @@
                 <label for="receipint">Receipint <span class="text-danger">*</span> </label>
                 <input type="text" class="form-control @error('receipint') is-invalid @enderror" id="receipint"
                     placeholder="Enter Letter Receipint Here ..."
-                    value="{{ old('receipint', $mail->receipint ?? '') }}" name="receipint">
+                    value="{{ old('receipint', $mail->receipint ?? auth()->user()->name) }}" name="receipint" disabled>
                 @error('receipint')
                     <p class="invalid-feedback" role="alert">
                         {{ $message }}
@@ -62,7 +62,7 @@
                     <option value="">Select a letter</option>
                     @foreach ($letters as $letter)
                         <option value="{{ $letter->id }}"
-                            {{ old('letter_id') == $letter->id ? 'selected' : '' }}>
+                            {{ old('letter_id') == $letter->id || $letter->id == request()->input('letter_id') ? 'selected' : '' }}>
                             {{ $letter->type }}
                         </option>
                     @endforeach
@@ -73,8 +73,13 @@
             <div class="col-12">
                 <label for="document">Document <span class="text-danger">*</span> </label>
                 <input type="file" name="document" id="document"
-                    class="form-control form-control-file @error('receipint') is-invalid @enderror" id="receipint"
+                    class="form-control form-control-file @error('document') is-invalid @enderror" id="document"
                     placeholder="Enter Letter File Here ..." value="{{ old('document') }}">
+                    @error('document')
+                    <p class="invalid-feedback" role="alert">
+                        {{ $message }}
+                    </p>
+                @enderror
             </div>
         </div>
         <div class="row">

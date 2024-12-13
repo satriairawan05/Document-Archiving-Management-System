@@ -21,6 +21,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Letter Type</th>
                                             <th>Date</th>
                                             <th>Subject</th>
                                             <th>From</th>
@@ -32,8 +33,9 @@
                                     <tbody>
                                         @foreach ($mails as $mail)
                                             <tr>
-                                                <td>{{ ($mails->currentPage() - 1) * $mails->perPage() + $loop->iteration }}
+                                                <td>{{ $loop->iteration }}
                                                 </td>
+                                                <td>{{ $mail->letterType->type }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($mail->date)->translatedFormat('l, d F Y') }}
                                                 </td>
                                                 <td>
@@ -43,13 +45,15 @@
                                                 <td>{{ $mail->sender }}</td>
                                                 <td>{{ $mail->receipint }}</td>
                                                 <td>
-                                                    <a href="{{ route('incoming_mail.show',$mail->id) }}" target="__blank" class="btn btn-sm btn-primary"><i class="fas fa-file-pdf"></i></a>
+                                                    @if($mail->document !== null)
+                                                    <a href="{{ route('outgoing_mail.show',$mail->id) }}" target="__blank" class="btn btn-sm btn-primary"><i class="fas fa-file-pdf"></i></a>
+                                                    @endif
                                                     @if ($access['Update'] == 1)
-                                                        <a href="{{ route('incoming_mail.edit', $mail->id) }}"
+                                                        <a href="{{ route('outgoing_mail.edit', ['outgoing_mail' => $mail->id, 'letter_id' => $letter_id]) }}"
                                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                                     @endif
                                                     @if ($access['Delete'] == 1)
-                                                        <form action="{{ route('incoming_mail.destroy', $mail->id) }}"
+                                                        <form action="{{ route('outgoing_mail.destroy', $mail->id) }}"
                                                             method="post" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
@@ -64,6 +68,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
+                                            <th>Letter Type</th>
                                             <th>Date</th>
                                             <th>Subject</th>
                                             <th>From</th>
@@ -73,10 +78,6 @@
                                         </tr>
                                     </tfoot>
                                 </table>
-
-                                <p class="mt-4">
-                                    {{ $mails->links() }}
-                                </p>
                             </div>
                         </div>
                     </div>

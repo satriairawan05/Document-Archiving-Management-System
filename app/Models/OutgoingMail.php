@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\LetterType;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OutgoingMail extends Model
 {
@@ -25,7 +26,12 @@ class OutgoingMail extends Model
      */
     protected $primaryKey = 'id';
 
-    protected $with = ['letterType'];
+    /**
+     * The relationship for the model.
+     *
+     * @var string
+     */
+    protected $with = ['letterType', 'user'];
 
     /**
      * Relaionship to LetterType from Outgoing Mail.
@@ -34,6 +40,16 @@ class OutgoingMail extends Model
      */
     public function letterType(): BelongsTo
     {
-        return $this->belonngsTo(LetterType::class);
+        return $this->belongsTo(LetterType::class, 'letter_id', 'id');
+    }
+
+    /**
+     * Relationship to User from Outgoing Mail.
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

@@ -122,7 +122,8 @@ class LetterTypeSeeder extends Seeder
             LetterType::create([
                 'type' => $type,
                 'code' => $code,
-                'number' => str_pad($counter++, 3, '0', STR_PAD_LEFT),
+                // 'number' => str_pad($counter++, 3, '0', STR_PAD_LEFT),
+                'ordinal' => '001'
             ]);
         }
     }

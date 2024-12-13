@@ -26,7 +26,7 @@
                                             <th>No</th>
                                             <th>Type</th>
                                             <th>Code</th>
-                                            <th>Number</th>
+                                            {{-- <th>Number</th> --}}
                                             <th>Ordinal</th>
                                             <th>Action</th>
                                         </tr>
@@ -37,7 +37,7 @@
                                                 <td>{{ ($letters->currentPage() - 1) * $letters->perPage() + $loop->iteration }}</td>
                                                 <td>{{ $letter->type }}</td>
                                                 <td>{{ $letter->code }}</td>
-                                                <td>{{ $letter->number }}</td>
+                                                {{-- <td>{{ $letter->number }}</td> --}}
                                                 <td>{{ $letter->ordinal ?? '000' }}</td>
                                                 <td>
                                                     @if ($access['Update'] == 1)
@@ -62,7 +62,7 @@
                                             <th>No</th>
                                             <th>Type</th>
                                             <th>Code</th>
-                                            <th>Number</th>
+                                            {{-- <th>Number</th> --}}
                                             <th>Ordinal</th>
                                             <th>Action</th>
                                         </tr>

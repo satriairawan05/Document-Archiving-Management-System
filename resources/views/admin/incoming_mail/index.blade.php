@@ -47,7 +47,11 @@
                                                 <td>{{ $mail->sender }}</td>
                                                 <td>{{ $mail->receipint }}</td>
                                                 <td>
-                                                    <a href="{{ route('incoming_mail.show',$mail->id) }}" target="__blank" class="btn btn-sm btn-primary"><i class="fas fa-file-pdf"></i></a>
+                                                    @if ($mail->document !== null)
+                                                        <a href="{{ route('incoming_mail.show', $mail->id) }}"
+                                                            target="__blank" class="btn btn-sm btn-primary"><i
+                                                                class="fas fa-file-pdf"></i></a>
+                                                    @endif
                                                     @if ($access['Update'] == 1)
                                                         <a href="{{ route('incoming_mail.edit', $mail->id) }}"
                                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>

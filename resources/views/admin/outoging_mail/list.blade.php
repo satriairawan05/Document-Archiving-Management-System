@@ -61,6 +61,9 @@
                                         </div>
                                     @endforeach
                                 </div>
+                                <div class="row mt-3">
+                                    {{ $letters->links() }}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -35,8 +35,10 @@ class OutgoingMailController extends Controller
             $this->get_access_page();
             if ($this->access['Read'] == 1) {
                 $letter_id = request()->input('letter_id');
+                $mails = OutgoingMail::where('letter_id',$letter_id)->latest()->get();
+                $letters = \App\Models\LetterType::select('id', 'type', 'code')->paginate(12);
 
-                return isset($letter_id) ? view('admin.outoging_mail.index', ['name' => $this->name, 'access' => $this->access, 'mails' => OutgoingMail::where('letter_id',$letter_id)->latest('id')->paginate(10)]) : view('admin.outoging_mail.list', ['name' => $this->name, 'access' => $this->access, 'letters' => \App\Models\LetterType::select('id', 'type', 'code')->get()]);
+                return isset($letter_id) ? view('admin.outoging_mail.index', ['name' => $this->name, 'access' => $this->access, 'mails' => $mails, 'letter_id' => $letter_id]) : view('admin.outoging_mail.list', ['name' => $this->name, 'access' => $this->access, 'letters' => $letters]);
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }

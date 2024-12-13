@@ -34,7 +34,7 @@
                 @enderror
             </div>
         </div>
-        <div class="row mb-3">
+        {{-- <div class="row mb-3">
             <div class="col-2">
                 <label for="number">Number <span class="text-danger">*</span> </label>
             </div>
@@ -48,7 +48,7 @@
                     </p>
                 @enderror
             </div>
-        </div>
+        </div> --}}
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
                 <a href="{{ $cancelRoute }}" class="btn btn-sm btn-secondary mx-2"><i class="fa fa-reply-all"></i></a>
