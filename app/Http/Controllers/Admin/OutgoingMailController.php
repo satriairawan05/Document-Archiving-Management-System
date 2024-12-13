@@ -77,7 +77,33 @@ class OutgoingMailController extends Controller
         try {
             $this->get_access_page();
             if ($this->access['Create'] == 1) {
-                //
+                $validated = \Illuminate\Support\Facades\Validator::make($request->all(), [
+                    'from' => 'required',
+                    'sender' => 'required',
+                    'receipint' => 'required',
+                    'subject' => 'required',
+                    'document' => 'required|file|mimes:pdf|max:5120',
+                ]);
+
+                if (!$validated->fails()) {
+                    $mail = new OutgoingMail;
+                    $mail->date = now();
+                    $file = $request->file('document');
+                    $mail->subject = $request->input('subject');
+                    $mail->from = $request->input('from');
+                    $mail->sender = $request->input('sender');
+                    $mail->receipint = $request->input('receipint');
+                    $mail->document = $file->store('Mail');
+                    $mail->doc_name = $file->getClientOriginalName();
+                    $mail->doc_extension = $file->getClientOriginalExtension();
+                    $mail->letter_id = $request->input('letter_id');
+                    $mail->user_id = auth()->user()->id;
+                    $mail->save();
+                } else {
+                    return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
+                }
+
+                return redirect()->to(route('incoming_mail.index'))->with('success', 'Data Added!');
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
@@ -135,7 +161,35 @@ class OutgoingMailController extends Controller
         try {
             $this->get_access_page();
             if ($this->access['Update'] == 1) {
-                //
+                $validated = \Illuminate\Support\Facades\Validator::make($request->all(), [
+                    'from' => 'required',
+                    'sender' => 'required',
+                    'receipint' => 'required',
+                    'subject' => 'required',
+                ]);
+
+                if (!$validated->fails()) {
+                    $outgoingMail->date = now();
+                    $outgoingMail->subject = $request->input('subject');
+                    $outgoingMail->from = $request->input('from');
+                    $outgoingMail->sender = $request->input('sender');
+                    $outgoingMail->receipint = $request->input('receipint');
+                    $file = $request->file('document');
+                    if ($request->hasFile('document')) {
+                        if ($file->getClientOriginalName() !== $outgoingMail->doc_name && \Illuminate\Support\Facades\Storage::exists($outgoingMail->document)) {
+                            \Illuminate\Support\Facades\Storage::delete($outgoingMail->document);
+                        }
+
+                        $outgoingMail->document = $file->store('Mail');
+                    }
+                    $outgoingMail->doc_name = $file->getClientOriginalName();
+                    $outgoingMail->doc_extension = $file->getClientOriginalExtension();
+                    $outgoingMail->letter_id = $request->input('letter_id');
+                    $outgoingMail->user_id = auth()->user()->id;
+                    $outgoingMail->save();
+                } else {
+                    return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
+                }
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
@@ -153,7 +207,13 @@ class OutgoingMailController extends Controller
         try {
             $this->get_access_page();
             if ($this->access['Delete'] == 1) {
-                //
+                if ($outgoingMail->document && \Illuminate\Support\Facades\Storage::exists($outgoingMail->document)) {
+                    \Illuminate\Support\Facades\Storage::delete($outgoingMail->document);
+                }
+
+                $outgoingMail->delete();
+
+                return redirect()->back()->with('success', 'Data Deleted!');
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }

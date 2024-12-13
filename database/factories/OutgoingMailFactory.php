@@ -37,6 +37,8 @@ class OutgoingMailFactory extends Factory
                 $faker = \Faker\Factory::create();
                 return $faker->file($sourceDir, $destDir, false);
             },
+            'doc_name' => $this->faker->word . '.pdf', // Nama dokumen dengan format acak
+            'doc_extension' => 'pdf',
         ];
     }
 }

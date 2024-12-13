@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('receipint')->nullable();
             $table->date('date')->nullable();
             $table->string('document')->nullable();
+            $table->string('doc_name')->nullable();
+            $table->string('doc_extension')->nullable();
             $table->timestamps();
             $table->index('user_id');
             $table->index('letter_id');

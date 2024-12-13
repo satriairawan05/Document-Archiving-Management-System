@@ -44,10 +44,12 @@
                                                 <td>{{ $mail->from }}</td>
                                                 <td>{{ $mail->sender }}</td>
                                                 <td>{{ $mail->receipint }}</td>
-                                                <td>
-                                                    @if($mail->document !== null)
-                                                    <a href="{{ route('outgoing_mail.show',$mail->id) }}" target="__blank" class="btn btn-sm btn-primary"><i class="fas fa-file-pdf"></i></a>
-                                                    @endif
+                                                <td class="d-inline">
+                                                    <p>
+                                                    {!! QrCode::size(50)->generate(route('outgoing_mail.show', $mail->id)) !!}
+                                                    </p>
+                                                    {{-- <a href="{{ route('outgoing_mail.show', $mail->id) }}" target="__blank"
+                                                        class="btn btn-sm btn-primary"><i class="fas fa-file-pdf"></i></a> --}}
                                                     @if ($access['Update'] == 1)
                                                         <a href="{{ route('outgoing_mail.edit', ['outgoing_mail' => $mail->id, 'letter_id' => $letter_id]) }}"
                                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>

@@ -88,11 +88,14 @@ class IncomingMailController extends Controller
                 if (!$validated->fails()) {
                     $mail = new IncomingMail;
                     $mail->date = now();
+                    $file = $request->file('document');
                     $mail->subject = $request->input('subject');
                     $mail->from = $request->input('from');
                     $mail->sender = $request->input('sender');
                     $mail->receipint = $request->input('receipint');
-                    $mail->document = $request->file('document')->store('Mail');
+                    $mail->document = $file->store('Mail');
+                    $mail->doc_name = $file->getClientOriginalName();
+                    $mail->doc_extension = $file->getClientOriginalExtension();
                     $mail->user_id = auth()->user()->id;
                     $mail->save();
                 } else {
@@ -178,20 +181,21 @@ class IncomingMailController extends Controller
                     $incomingMail->from = $request->input('from');
                     $incomingMail->sender = $request->input('sender');
                     $incomingMail->receipint = $request->input('receipint');
+                    $file = $request->file('document');
                     if ($request->hasFile('document')) {
-                        if ($request->file('document') == $incomingMail->document && \Illuminate\Support\Facades\Storage::exists($incomingMail->document)) {
+                        if ($file->getClientOriginalName() !== $incomingMail->doc_name && \Illuminate\Support\Facades\Storage::exists($incomingMail->document)) {
                             \Illuminate\Support\Facades\Storage::delete($incomingMail->document);
                         }
 
-                        $incomingMail->document = $request->file('document')->store('Mail');
+                        $incomingMail->document = $file->store('Mail');
                     }
+                    $incomingMail->doc_name = $file->getClientOriginalName();
+                    $incomingMail->doc_extension = $file->getClientOriginalExtension();
                     $incomingMail->user_id = auth()->user()->id;
                     $incomingMail->save();
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
                 }
-
-
                 return redirect()->to(route('incoming_mail.index'))->with('success', 'Data Updated!');
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
