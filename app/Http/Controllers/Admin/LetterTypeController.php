@@ -34,7 +34,7 @@ class LetterTypeController extends Controller
         try {
             $this->get_access_page();
             if ($this->access['Read'] == 1) {
-                $letterType = LetterType::select(['id', 'type', 'code', 'ordinal'])->latest('id')->paginate(10);
+                $letterType = LetterType::select(['id', 'type', 'code'])->latest('id')->paginate(10);
                 return view('admin.letter_type.index', [
                     'name' => $this->name,
                     'letters' => $letterType,
@@ -87,8 +87,8 @@ class LetterTypeController extends Controller
                     $letterType = new LetterType;
                     $letterType->type = $request->input('type');
                     $letterType->code = $request->input('code');
-                    $letterType->number = $request->input('number');
-                    $letterType->ordinal = '0000';
+                    // $letterType->number = $request->input('number');
+                    // $letterType->ordinal = '0000';
                     $letterType->save();
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
@@ -150,7 +150,7 @@ class LetterTypeController extends Controller
                 if (!$validated->fails()) {
                     $letterType->type = $request->input('type');
                     $letterType->code = $request->input('code');
-                    $letterType->number = $request->input('number');
+                    // $letterType->number = $request->input('number');
                     $letterType->save();
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();

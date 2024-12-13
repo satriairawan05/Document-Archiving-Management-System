@@ -27,7 +27,7 @@
                                             <th>Type</th>
                                             <th>Code</th>
                                             {{-- <th>Number</th> --}}
-                                            <th>Ordinal</th>
+                                            {{-- <th>Ordinal</th> --}}
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -38,7 +38,7 @@
                                                 <td>{{ $letter->type }}</td>
                                                 <td>{{ $letter->code }}</td>
                                                 {{-- <td>{{ $letter->number }}</td> --}}
-                                                <td>{{ $letter->ordinal ?? '000' }}</td>
+                                                {{-- <td>{{ $letter->ordinal ?? '000' }}</td> --}}
                                                 <td>
                                                     @if ($access['Update'] == 1)
                                                         <a href="{{ route('letter_type.edit', $letter->id) }}"
@@ -63,7 +63,7 @@
                                             <th>Type</th>
                                             <th>Code</th>
                                             {{-- <th>Number</th> --}}
-                                            <th>Ordinal</th>
+                                            {{-- <th>Ordinal</th> --}}
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
