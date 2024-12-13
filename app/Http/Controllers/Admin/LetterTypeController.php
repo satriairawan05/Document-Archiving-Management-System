@@ -34,7 +34,7 @@ class LetterTypeController extends Controller
         try {
             $this->get_access_page();
             if ($this->access['Read'] == 1) {
-                $letterType = LetterType::select(['id', 'type', 'code', 'number', 'ordinal'])->latest('id')->paginate(10);
+                $letterType = LetterType::select(['id', 'type', 'code', 'ordinal'])->latest('id')->paginate(10);
                 return view('admin.letter_type.index', [
                     'name' => $this->name,
                     'letters' => $letterType,
