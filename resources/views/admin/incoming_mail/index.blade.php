@@ -47,11 +47,14 @@
                                                 <td>{{ $mail->sender }}</td>
                                                 <td>{{ $mail->receipint }}</td>
                                                 <td class="d-inline">
-                                                    <p>{!! QrCode::size(50)->generate(route('incoming_mail.show', $mail->id)) !!}</p>
-                                                    <!-- di aktifkan ketika mau buka PDF -->
-                                                    <a href="{{ route('incoming_mail.show', $mail->id) }}" target="__blank"
-                                                        class="btn btn-sm btn-primary"><i class="fas fa-file-pdf"></i></a>
-                                                        <!-- baris 51-52 yang di aktifkan ketika mau melihat pdf, pas mau SS Blok baris tersebut dengan klik ctrl+/ -->
+                                                    @if ($mail->document !== null)
+                                                        <p>{!! QrCode::size(50)->generate(route('incoming_mail.show', $mail->id)) !!}</p>
+                                                        <!-- di aktifkan ketika mau buka PDF -->
+                                                        <a href="{{ route('incoming_mail.show', $mail->id) }}"
+                                                            target="__blank" class="btn btn-sm btn-primary"><i
+                                                                class="fas fa-file-pdf"></i></a>
+                                                        <!-- baris 53-55 yang di aktifkan ketika mau melihat pdf, pas mau SS Blok baris tersebut dengan klik ctrl+/ -->
+                                                    @endif
                                                     @if ($access['Update'] == 1)
                                                         <a href="{{ route('incoming_mail.edit', $mail->id) }}"
                                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
