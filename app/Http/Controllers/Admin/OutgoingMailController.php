@@ -130,6 +130,7 @@ class OutgoingMailController extends Controller
                 return response()->file($filePath, [
                     'Content-Type' => 'application/pdf',
                     'Content-Disposition' => 'inline; filename="' . basename($filePath) . '"',
+                ]);
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
@@ -184,7 +185,7 @@ class OutgoingMailController extends Controller
                     $outgoingMail->receipint = $request->input('receipint');
                     $file = $request->file('document');
                     if ($request->hasFile('document')) {
-                        if (\Illuminate\Support\Facades\Storage::exists($outgoingMail->document)) {
+                        if ($outgoingMail->document != $file) {
                             \Illuminate\Support\Facades\Storage::delete($outgoingMail->document);
                         }
 

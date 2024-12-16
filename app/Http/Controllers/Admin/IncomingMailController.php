@@ -183,7 +183,7 @@ class IncomingMailController extends Controller
                     $incomingMail->receipint = $request->input('receipint');
                     $file = $request->file('document');
                     if ($request->hasFile('document')) {
-                        if ($file->getClientOriginalName() !== $incomingMail->doc_name && \Illuminate\Support\Facades\Storage::exists($incomingMail->document)) {
+                        if ($incomingMail->document != $file) {
                             \Illuminate\Support\Facades\Storage::delete($incomingMail->document);
                         }
 
