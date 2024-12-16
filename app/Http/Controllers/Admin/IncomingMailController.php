@@ -98,11 +98,11 @@ class IncomingMailController extends Controller
                     $mail->doc_extension = $file->getClientOriginalExtension();
                     $mail->user_id = auth()->user()->id;
                     $mail->save();
+                    return redirect()->to(route('incoming_mail.index'))->with('success', 'Data Added!');
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
                 }
 
-                return redirect()->to(route('incoming_mail.index'))->with('success', 'Data Added!');
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
@@ -183,7 +183,7 @@ class IncomingMailController extends Controller
                     $incomingMail->receipint = $request->input('receipint');
                     $file = $request->file('document');
                     if ($request->hasFile('document')) {
-                        if ($incomingMail->document != $file) {
+                        if ($incomingMail->document != null) {
                             \Illuminate\Support\Facades\Storage::delete($incomingMail->document);
                         }
 
@@ -193,10 +193,10 @@ class IncomingMailController extends Controller
                     $incomingMail->doc_extension = $file->getClientOriginalExtension();
                     $incomingMail->user_id = auth()->user()->id;
                     $incomingMail->save();
+                    return redirect()->to(route('incoming_mail.index'))->with('success', 'Data Updated!');
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
                 }
-                return redirect()->to(route('incoming_mail.index'))->with('success', 'Data Updated!');
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }

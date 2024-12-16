@@ -99,11 +99,11 @@ class OutgoingMailController extends Controller
                     $mail->letter_id = $request->input('letter_id');
                     $mail->user_id = auth()->user()->id;
                     $mail->save();
+                    return redirect()->to(route('outgoing_mail.index'))->with('success', 'Data Added!');
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
                 }
 
-                return redirect()->to(route('incoming_mail.index'))->with('success', 'Data Added!');
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
@@ -185,7 +185,7 @@ class OutgoingMailController extends Controller
                     $outgoingMail->receipint = $request->input('receipint');
                     $file = $request->file('document');
                     if ($request->hasFile('document')) {
-                        if ($outgoingMail->document != $file) {
+                        if ($outgoingMail->document != null) {
                             \Illuminate\Support\Facades\Storage::delete($outgoingMail->document);
                         }
 
@@ -196,6 +196,8 @@ class OutgoingMailController extends Controller
                     $outgoingMail->letter_id = $request->input('letter_id');
                     $outgoingMail->user_id = auth()->user()->id;
                     $outgoingMail->save();
+
+                    return redirect()->to(route('outgoing_mail.index'))->with('success', 'Data Updated!');
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
                 }

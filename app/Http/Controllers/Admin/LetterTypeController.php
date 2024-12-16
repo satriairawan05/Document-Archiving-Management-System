@@ -90,11 +90,11 @@ class LetterTypeController extends Controller
                     // $letterType->number = $request->input('number');
                     // $letterType->ordinal = '0000';
                     $letterType->save();
+                    return redirect()->to(route('letter_type.index'))->with('success', 'Data Added!');
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
                 }
 
-                return redirect()->to(route('letter_type.index'))->with('success', 'Data Added!');
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
@@ -152,11 +152,11 @@ class LetterTypeController extends Controller
                     $letterType->code = $request->input('code');
                     // $letterType->number = $request->input('number');
                     $letterType->save();
+                    return redirect()->to(route('letter_type.index'))->with('success', 'Data Updated!');
                 } else {
                     return redirect()->back()->with('failed', $validated->getMessageBag())->withInput();
                 }
 
-                return redirect()->to(route('letter_type.index'))->with('success', 'Data Updated!');
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
