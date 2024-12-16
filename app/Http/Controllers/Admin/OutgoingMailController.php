@@ -121,7 +121,15 @@ class OutgoingMailController extends Controller
         try {
             $this->get_access_page();
             if ($this->access['Read'] == 1) {
-                //
+                if (!\Illuminate\Support\Facades\Storage::exists($outgoingMail->document)) {
+                    abort(404, 'File Not Found!');
+                }
+
+                $filePath = \Illuminate\Support\Facades\Storage::path($outgoingMail->document);
+
+                return response()->file($filePath, [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'inline; filename="' . basename($filePath) . '"',
             } else {
                 return redirect()->back()->with('failed', 'You not Have Authority!');
             }
@@ -176,7 +184,7 @@ class OutgoingMailController extends Controller
                     $outgoingMail->receipint = $request->input('receipint');
                     $file = $request->file('document');
                     if ($request->hasFile('document')) {
-                        if ($file->getClientOriginalName() !== $outgoingMail->doc_name && \Illuminate\Support\Facades\Storage::exists($outgoingMail->document)) {
+                        if (\Illuminate\Support\Facades\Storage::exists($outgoingMail->document)) {
                             \Illuminate\Support\Facades\Storage::delete($outgoingMail->document);
                         }
 

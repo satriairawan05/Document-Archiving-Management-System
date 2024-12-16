@@ -45,9 +45,9 @@
             </div>
             <div class="col-6">
                 <label for="receipint">Receipint <span class="text-danger">*</span> </label>
-                <input type="text" class="form-control @error('receipint') is-invalid @enderror" id="receipint"
+                <input type="text" class="form-control @error('receipint') is-invalid @enderror" id="receipint" name="receipint"
                     placeholder="Enter Letter Receipint Here ..."
-                    value="{{ old('receipint', $mail->receipint ?? auth()->user()->name) }}" name="receipint" disabled>
+                    value="{{ old('receipint', $mail->receipint ?? '') }}">
                 @error('receipint')
                     <p class="invalid-feedback" role="alert">
                         {{ $message }}
