@@ -53,7 +53,7 @@
                                 <div class="row">
                                     @foreach ($letters as $letter)
                                         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                                            <div class="card-item {{ $letter->id % 2 === 0 ? 'bg-primary' : 'bg-secondary' }} rounded p-3 text-center {{ $letter->id % 2 === 0 ? 'text-white' : 'text-dark' }}">
+                                            <div class="card-item {{ $letter->id % 2 === 0 ? 'bg-primary text-white' : 'bg-secondary text-dark' }} rounded p-3 text-center">
                                                 <h1 class="font-weight-bold mb-2">{{ $letter->code }}</h1>
                                                 <a href="?letter_id={{ $letter->id }}"
                                                     class="text-decoration-none {{ $letter->id % 2 === 0 ? 'text-white' : 'text-dark' }}"><i class="fas {{ $letter->id % 2 === 0 ? 'fa-file-signature' : 'fa-file-archive' }}"></i> {{ $letter->type }}</a>
